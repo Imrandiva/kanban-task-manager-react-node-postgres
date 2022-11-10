@@ -1,0 +1,75 @@
+.addthetask {
+    /* background-color: #488cfc; */
+    border: 3px solid #488cfc;
+    background: transparent;
+    color: #488cfc;
+
+}
+
+.addthetask:hover {
+    background: #488cfc;
+    color: white;
+}
+
+
+.card {
+    transition: height 0.5s ease-in-out;
+    will-change: height;
+}
+.card:hover {
+    background-color: #488cfc;
+
+}
+
+.card-text {
+    min-width: 236px;
+    min-height: 350px;
+}
+
+h4 {
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    padding-left: 0px;
+  }
+
+.li-content {
+height: 25px;
+}
+
+.taskIcon {
+    background: paleturquoise;
+    padding: 5px; 
+    border-radius: 50px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    color: black;
+    font-size: 8px;
+}
+.taskIcon2 {
+    background: yellow; 
+    padding: 5px; 
+    border-radius: 50px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    color: black;
+    font-size: 8px;
+}
+
+.taskIcon2:hover {
+    zoom: 120%;
+}
+
+.save-progress {
+    background-color: darkblue;
+    margin-top: 5%;
+
+
+
+}
+.save-progress:hover {
+    background-color: yellow;
+    color: black
+}   
