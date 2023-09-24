@@ -25,7 +25,8 @@ export default class KanbanBoard extends Component {
       changeTask: '', 
       showForm: false,
       chosenColumn: 'task_name',
-      currentName: ''
+      currentName: '',
+      isCalendarVisible: false
       
 
       
@@ -220,6 +221,13 @@ export default class KanbanBoard extends Component {
       // window.location.reload();
   }
 
+  handleDateInputFocus = () => {
+    this.setState({ isCalendarVisible: true });
+  }
+
+
+
+
   handleChange(date) {
     this.setState({
       calendarDate: date.toISOString().split('T')[0],
@@ -257,6 +265,7 @@ export default class KanbanBoard extends Component {
   }
   addTask = () => {
     if (this.state.inputValue) {
+      
       const _tasks = this.state.tasks;
       this.createMerchant(this.state.inputValue, this.state.courseInput, this.state.dateInput, 0);
       _tasks.push({ name: this.state.inputValue, course: this.state.courseInput, chosenDate: this.state.dateInput,  stage: 0 });
@@ -265,6 +274,8 @@ export default class KanbanBoard extends Component {
       this.setState({ tasks: _tasks, inputValue:'' });
       this.setState({ tasks: _tasks, courseInput:'' });
       this.setState({ tasks: _tasks, dateInput:'' });
+
+      this.setState({ isCalendarVisible: false });
 
    
       
@@ -326,7 +337,7 @@ export default class KanbanBoard extends Component {
       alert("There is no such column as " + column + " on this to-do list")
       return 
     }
-    let change = prompt("What would you like to change it to?")
+    let change = prompt("What would you like to change it to? Name, course, date?")
 
     for (let i =0; i < Object.keys(_tasks).length; i++) {
      if (_tasks[i].name == name) {
@@ -396,33 +407,37 @@ export default class KanbanBoard extends Component {
     
    
     return (
-      
+    
       <div className="mt-20 layout-column justify-content-center align-items-center">
+        <h1>KANBAN board</h1>
         <section className="deadlineCal">
-          <InfiniteCalendar
-
-            selected={ this.state.calendarDate }
-            onSelect={ this.handleChange }
-            locale={{
-            weekStartsOn: 1}}
-            displayOptions={{
-            layout: 'landscape'
-            }}
-            width={800}
-            height={200}
-          />
+          {this.state.isCalendarVisible && (
+            <InfiniteCalendar
+              selected={this.state.calendarDate}
+              onSelect={this.handleChange}
+              locale={{
+                weekStartsOn: 1
+              }}
+              displayOptions={{
+                layout: 'landscape'
+              }}
+              width={800}
+              height={200}
+            />
+          )}
          </section>
          <section className="mt-50 layout-row align-items-center justify-content-center">
           <input value={this.state.inputValue} onChange={this.onInputChange} onKeyDown={this.enterAddTask} id="create-task-input" type="text" className="large" placeholder="New task name" data-testid="create-task-input" />
           <input value={this.state.courseInput} onChange={this.onCourseInputChange} onKeyDown={this.enterAddTask} id="create-task-input" type="text" className="large" placeholder="Course code" data-testid="create-task-input" />
-          <input value={this.state.dateInput} onKeyDown={this.enterAddTask} id="create-task-input" type="text" className="large" placeholder="Deadline date" data-testid="create-task-input" />
+          <input value={this.state.dateInput}  onFocus={this.handleDateInputFocus}  onKeyDown={this.enterAddTask} id="create-task-input" type="text" className="large" placeholder="Deadline date" data-testid="create-task-input" />
 
-        
           <button onClick={this.addTask} type="submit" className="addthetask" data-testid="create-task-button">Create task</button>
-          <button onClick={this.saveProgress} type="submit" className="addthetask" data-testid="create-task-button">Save progress</button>
-  
+
+          
           {/* <button  onClick={this.getMerchant} type="submit" className="save-progress">Delete a task </button> */}
         </section>
+        
+  
         <div className="mt-50 layout-row">
           {stagesTasks.map((tasks, i) => {
             return (
@@ -468,7 +483,8 @@ export default class KanbanBoard extends Component {
             )
           })}
         </div>
-        
+        <button onClick={this.saveProgress} type="submit" className="addthetask" data-testid="create-task-button">Save progress</button>
+
       </div>
     );
   }

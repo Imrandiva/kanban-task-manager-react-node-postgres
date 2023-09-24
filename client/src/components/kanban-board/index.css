@@ -3,6 +3,10 @@
     border: 3px solid #488cfc;
     background: transparent;
     color: #488cfc;
+    margin:0.5rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    font-weight: normal;
 
 }
 
